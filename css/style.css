@@ -82,7 +82,7 @@ body{
     font-size: 1.4em;
 }
 
-.button_tran:active{
+.button_tran:hover , .button_tran:active{
     background-color: #eee;
 }
 
@@ -98,7 +98,7 @@ body{
     font-size: 3em;
 }
 
-.button_big:active{
+.button_big:hover , .button_big:active{
     background-color: #d66b38;
 }
 
