@@ -1,0 +1,121 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+    list-style: none;
+}
+
+/* 清除内外边距 */
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,     /* structural elements 结构元素 */
+dl,dt,dd,ul,ol,li,                          /* list elements 列表元素 */
+pre,                                        /* text formatting elements 文本格式元素 */
+form,fieldset,legend,button,input,textarea, /* form elements 表单元素 */
+th,td                                       /* table elements 表格元素 */
+{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: "Arial", "Verdana", "Tahoma", serif;/*这字体好，拜阿迪王*/
+}
+
+.main_body{
+    width: 387px;
+    height:561px;
+    background-color: #f2f2f2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -191px;
+    margin-top: -280px;
+}
+
+.button_base{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 387px;
+    height: 350px;
+    background-color: #c0c0c0;
+    position: absolute;
+    bottom: 0;
+}
+
+.button_co{
+    width: 96px;
+    height: 350px;
+    margin-right: 1px;
+    float: right;
+}
+
+.button_co_last{
+    width: 96px;
+    height: 350px;
+    float: right;
+}
+
+.button{
+    width: 96px;
+    height: 69px;
+    cursor: pointer;
+    margin-bottom: 1px;
+    background-color: #fdfdfd;
+    color: #5b5b5b;
+    line-height: 69px;
+    text-align: center;
+    font-size: 1.6em;
+}
+
+.button:active{
+    background-color: #eee;
+}
+
+.button_tran{
+    width: 96px;
+    height: 69px;
+    cursor: pointer;
+    margin-bottom: 1px;
+    background-color: #f0f5f4;
+    color: #5b5b5b;
+    line-height: 69px;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+.button_tran:active{
+    background-color: #eee;
+}
+
+.button_big{
+    width: 96px;
+    height: 139px;
+    cursor: pointer;
+    margin-bottom: 1px;
+    background-color: #fc7f44;
+    color: #fff;
+    line-height: 139px;
+    text-align: center;
+    font-size: 3em;
+}
+
+.button_big:active{
+    background-color: #d66b38;
+}
+
+.console{
+    color: #484848;
+    width: 355px;
+    height: 105px;
+    font-size: 2em;
+    line-height: 105px;
+    text-align: right;
+}
+
+.console_old{
+    color: #818181;
+    width: 355px;
+    height: 105px;
+    font-size: 1.4em;
+    line-height: 105px;
+    text-align: right;
+}

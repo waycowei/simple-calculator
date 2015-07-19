@@ -1,0 +1,15 @@
+*.html~
+*.js~
+*.json~
+*.css~
+*.md~
+*.gitignore~
+*.txt~
+*.html.bak
+*.js.bak
+*.json.bak
+*.css.bak
+*.md.bak
+*.txt.bak
+.*
+!.gitignore
