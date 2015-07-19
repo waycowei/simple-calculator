@@ -17,6 +17,8 @@ var deciFor = 0;                    //被操作数小数部分
 var inteLat = 0;                    //操作数整数部分
 var deciLat = 0;                    //操作数小数部分
 
+
+
 //TODO:点击.重置decimal
 
 $("#5_2").click(function(){
