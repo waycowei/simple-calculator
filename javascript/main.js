@@ -9,20 +9,21 @@ var timesLow = 1;                   //被操作数小数倍数
 var timesHig = 1;                   //操作数小数倍数
 
 var temp = 0;                       //记录上一轮结果
-var console = "0";                   //显示当前公式
+var console = "0";                  //显示当前公式
 var oleConsole = "";                //显示上次公式结果
 var inteFor = 0;                    //被操作数整数部分
 var deciFor = 0;                    //被操作数小数部分
 var inteLat = 0;                    //操作数整数部分
 var deciLat = 0;                    //操作数小数部分
 
-//TODO:写BACK
-//TODO:写加减乘除
-
 //显示结果
 function show(s){
     $(s).text("");
     $(s).append(console);
+}
+
+function stringLast(s){
+    return s.substring(s.length-1,s.length);
 }
 
 function add(s){
@@ -74,10 +75,31 @@ function numKey(n){
     show(".console");
 }
 
-
+/**
+ * 加减乘除
+ * @param s
+ * @param n
+ */
+function psmd(s,n){
+    if(stringLast(console)=="+"||stringLast(console)=="-"||stringLast(console)=="*"||stringLast(console)=="/"){
+        sign = n;
+        console = console.substring(0,console.length-1);
+        console = console+s;
+        show(console);
+    }else{
+        sign = n;
+        console = console+s;
+        show(console);
+    }
+}
 
 //clear
 $("#1_1").click(function(){
+    if(temp){
+        oleConsole = temp;
+        $(".console_old").text("");
+        $(".console_old").append(oleConsole);
+    }
     console="";
     $(".console").text("");
     $(".console").append(console);
@@ -85,33 +107,56 @@ $("#1_1").click(function(){
     deciFor = 0;
     inteLat = 0;
     deciLat = 0;
+    isdeFor = 0;
+    isdeLat = 0;
+    sign = 0;
+    timesLow = 1;
+    timesHig = 1;
+    temp = 0;
 });
 
 //back
 $("#1_2").click(function(){
+    //TODO:写BACK
+    if(sign==0&&stringLast(console)=="."){           //88.
+        isdeFor=0;
+    }else if(sign!=0&&stringLast(console)=="."){     //88.88+88.
+        isdeLat=0;
+    }else if(true){     //8(0)
+
+    }else if(true){     //88.8(88.0)
+
+    }else if(true){     //88.88+8(0)、88.88+
+
+    }else if(true){     //88.88+88.8(88.0)
+
+    }
     if(console.length){
         console = console.substring(0, console.length-1);
     }
     $(".console").text("");
     $(".console").append(console);
+
 })
 
 //point
 $("#5_3").click(function(){
-    console.substring(0,console.length);
-    switch (sign){
-        case 0:
-            console = console+".";
-            isdeFor = 1;
-            break;
-        case 1,2,3,4:
-            console = console+".";
-            isdeLat = 1;
-            break;
-        default :
-            break;
+    //TODO:(sign!=0&&isdeLat==0)带检验
+    if(isdeFor+sign==0||sign!=0&&isdeLat==0){
+        switch (sign){
+            case 0:
+                console = console+".";
+                isdeFor = 1;
+                break;
+            case 1,2,3,4:
+                console = console+".";
+                isdeLat = 1;
+                break;
+            default :
+                break;
+        }
+        show(".console");
     }
-    show(".console");
 })
 
 $("#5_2").click(function(){numKey(0);});    //0
@@ -124,12 +169,8 @@ $("#3_3").click(function(){numKey(6);});    //6
 $("#2_1").click(function(){numKey(7);});    //7
 $("#2_2").click(function(){numKey(8);});    //8
 $("#2_3").click(function(){numKey(9);});    //9
-
-//muti
-$("#1_4").click(function(){
-    sign = 3;
-    console = console+"*"
-    $(".console").text("");
-    $(".console").append(console);
-})
+$("#3_4").click(function(){psmd("+",1)});   //plus
+$("#2_4").click(function(){psmd("-",2)});   //subt
+$("#1_4").click(function(){psmd("*",3)});   //muti
+$("#1_3").click(function(){psmd("/",4)});   //divi
 
