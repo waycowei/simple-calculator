@@ -95,7 +95,7 @@ function main(){
             }
         }else if(sign==0&&isdeFor!=0){                   //88.8(88.0)   TODO ERROR
             timesLow -= 2;
-            deciFor = deciFor.toFixed(timesLow);
+            deciFor = parseFloat(deciFor.toFixed(timesLow));
             timesLow += 1;
             alert(deciFor)
         }else if(sign!=0&&isdeLat==0){                   //88.88+8(0)、88.88+
@@ -110,7 +110,7 @@ function main(){
                 isdeLat=0;
             }else{
                 timesHig -= 1;
-                deciLat = deciLat.toFixed(timesHig);
+                deciLat = parseFloat(deciLat.toFixed(timesHig));
             }
         }
         if(console.length){
@@ -124,19 +124,19 @@ function main(){
         if(stringLast(console)!="."&&sign!=0) {
             switch (sign) {
                 case 1:
-                    console = (inteFor + inteLat + deciFor + deciLat).toFixed(Math.max(timesHig, timesLow) - 1).toString();
+                    console = (inteFor + inteLat + deciFor + deciLat).toFixed(Math.max(timesHig, timesLow) - 1);
                     break;
                 case 2:
-                    console = ((inteFor + deciFor).toFixed(timesLow - 1) - (inteLat + deciLat).toFixed(timesHig - 1)).toString();
+                    console = (inteFor + deciFor).toFixed(timesLow - 1) - (inteLat + deciLat).toFixed(timesHig - 1);
                     break;
                 case 3:
-                    console = ((inteFor + deciFor).toFixed(timesLow - 1) * (inteLat + deciLat).toFixed(timesHig - 1)).toString();
+                    console = (inteFor + deciFor).toFixed(timesLow - 1) * (inteLat + deciLat).toFixed(timesHig - 1);
                     break;
                 case 4:
-                    if ((inteLat + deciLat).toFixed(timesHig - 1) == 0) {
+                    if (parseFloat((inteLat + deciLat).toFixed(timesHig - 1)) == 0) {
                         break;
                     }
-                    console = ((inteFor + deciFor).toFixed(timesLow - 1) / (inteLat + deciLat).toFixed(timesHig - 1)).toString();
+                    console = (inteFor + deciFor).toFixed(timesLow - 1) / (inteLat + deciLat).toFixed(timesHig - 1);
                     break;
                 default :
                     break;
@@ -175,8 +175,8 @@ function stringLast(s){
 function add(s,n){
     if(isdeLat){
         //操作数的小数部分
-        deciLat = deciLat+n*(Math.pow(0.1,timesHig).toFixed(timesHig));
-        console = (inteFor+deciFor).toFixed(timesLow-1).toString()+s+(inteLat+deciLat).toFixed(timesHig).toString();
+        deciLat = deciLat+n*(parseFloat(Math.pow(0.1,timesHig).toFixed(timesHig)));
+        console = (inteFor+deciFor).toFixed(timesLow-1)+s+(inteLat+deciLat).toFixed(timesHig);
         timesHig += 1;
     }else{
         //操作数的整数部分
@@ -194,7 +194,7 @@ function numKey(n){
         case 0:
             if(isdeFor){
                 //被操作数的小数部分
-                deciFor = (deciFor+n*Math.pow(0.1,timesLow)).toFixed(timesLow);
+                deciFor = parseFloat((deciFor+n*Math.pow(0.1,timesLow)).toFixed(timesLow));
                 console = (inteFor+deciFor).toString();
                 timesLow += 1;
             }else{
@@ -226,7 +226,7 @@ function psmd(s,n){
     if(parseFloat(temp)!=0){
         var n = temp.toString().split(".")[1].length;
         inteFor=parseInt(temp);
-        deciFor=(parseFloat(temp)-parseInt(temp)).toFixed(n);
+        deciFor=parseFloat((parseFloat(temp)-parseInt(temp)).toFixed(n));
     }
     if(sign!=0&&(stringLast(console)!=".")){
         return;
