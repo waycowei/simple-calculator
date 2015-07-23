@@ -1,23 +1,21 @@
 /**
- * Created by ¿­ on 2015/7/18.
+ * Created by å‡¯ on 2015/7/18.
  */
 
-var isdeFor = 0;                    //0£ºÕûÊı 1£ºĞ¡Êı
+var isdeFor = 0;                    //0ï¼šæ•´æ•° 1ï¼šå°æ•°
 var isdeLat = 0;
-var sign = 0;                       //0£ºÎŞ²Ù×÷ 1£º¼Ó 2£º¼õ 3£º³Ë 4£º³ı
-var timesLow = 1;                   //±»²Ù×÷ÊıĞ¡Êı±¶Êı
-var timesHig = 1;                   //²Ù×÷ÊıĞ¡Êı±¶Êı
+var sign = 0;                       //0ï¼šæ— æ“ä½œ 1ï¼šåŠ  2ï¼šå‡ 3ï¼šä¹˜ 4ï¼šé™¤
+var timesLow = 1;                   //è¢«æ“ä½œæ•°å°æ•°å€æ•°
+var timesHig = 1;                   //æ“ä½œæ•°å°æ•°å€æ•°
 
-var temp = 0;                       //¼ÇÂ¼ÉÏÒ»ÂÖ½á¹û
-var console = "0";                  //ÏÔÊ¾µ±Ç°¹«Ê½
-//var oleConsole = "";                //ÏÔÊ¾ÉÏ´Î¹«Ê½½á¹û
-var inteFor = 0;                    //±»²Ù×÷ÊıÕûÊı²¿·Ö
-var deciFor = 0;                    //±»²Ù×÷ÊıĞ¡Êı²¿·Ö
-var inteLat = 0;                    //²Ù×÷ÊıÕûÊı²¿·Ö
-var deciLat = 0;                    //²Ù×÷ÊıĞ¡Êı²¿·Ö
+var temp = 0;                       //è®°å½•ä¸Šä¸€è½®ç»“æœ
+var console = "0";                  //æ˜¾ç¤ºå½“å‰å…¬å¼
+//var oleConsole = "";                //æ˜¾ç¤ºä¸Šæ¬¡å…¬å¼ç»“æœ
+var inteFor = 0;                    //è¢«æ“ä½œæ•°æ•´æ•°éƒ¨åˆ†
+var deciFor = 0;                    //è¢«æ“ä½œæ•°å°æ•°éƒ¨åˆ†
+var inteLat = 0;                    //æ“ä½œæ•°æ•´æ•°éƒ¨åˆ†
+var deciLat = 0;                    //æ“ä½œæ•°å°æ•°éƒ¨åˆ†
 
-//TODO:Íê³É¹¦ÄÜ£ºÕûÊı¼Ó¼õ³Ë³ı
-//TODO:consoleµÃ²»µ½±»²Ù×÷ÊıµÄĞ¡Êı²¿·Ö
 
 function main(){
 
@@ -32,6 +30,7 @@ function main(){
     $("#2_1").click(function(){numKey(7);});    //7
     $("#2_2").click(function(){numKey(8);});    //8
     $("#2_3").click(function(){numKey(9);});    //9
+    $("#4_4").click(function(){getResult()});   //result
     $("#3_4").click(function(){psmd(" +",1)});  //plus
     $("#2_4").click(function(){psmd(" -",2)});  //subt
     $("#1_4").click(function(){psmd(" *",3)});  //muti
@@ -41,7 +40,7 @@ function main(){
             show(".console_old",temp);
         }
         show(".console","");
-        //Çå³ı±äÁ¿
+        //æ¸…é™¤å˜é‡
         sign = 0;
         temp = 0;
         inteFor = 0;
@@ -56,7 +55,8 @@ function main(){
     });           //clear
 
     $("#5_3").click(function(){
-        //TODO:(sign!=0&&isdeLat==0)´ı¼ìÑé
+        ifTempNonzero();
+        //TODO:(sign!=0&&isdeLat==0)å¾…æ£€éªŒ
         if(isdeFor+sign==0||(sign!=0&&isdeLat==0)){
             switch (sign){
                 case 0:
@@ -83,7 +83,6 @@ function main(){
     //back
     $("#1_2").click(function(){
         if(sign==0&&stringLast(console)=="."){           //88.
-            alert("dsad")
             isdeFor=0;
         }else if(sign!=0&&stringLast(console)=="."){     //88.88+88.
             isdeLat=0;
@@ -93,19 +92,17 @@ function main(){
             }else{
                 inteFor=Math.floor(inteFor/10);
             }
-        }else if(sign==0&&isdeFor!=0){                   //88.8(88.0)   TODO ERROR
-            timesLow -= 2;
-            deciFor = parseFloat(deciFor.toFixed(timesLow));
-            timesLow += 1;
-            alert(deciFor)
-        }else if(sign!=0&&isdeLat==0){                   //88.88+8(0)¡¢88.88+
+        }else if(sign==0&&isdeFor!=0){                   //88.8(88.0)   TODO ERROR(1)
+            timesLow -= 1;
+            deciFor = parseFloat(deciFor.toFixed(timesLow-1));
+        }else if(sign!=0&&isdeLat==0){                   //88.88+8(0)ã€88.88+
             if(isdeLat==0){
                 inteLat = Math.floor(inteLat/10);
             }
             if(stringLast(console)=="+"||stringLast(console)=="-"||stringLast(console)=="*"||stringLast(console)=="/"){
                 sign=0;
             }
-        }else if(sign!=0&&isdeLat==1){                   //88.88+88.8(88.0)
+        }else if(sign!=0&&isdeLat==1){                   //88.88+88.8(88.0)     TODO ERROR(1)
             if(stringLast(console)=="."){
                 isdeLat=0;
             }else{
@@ -119,48 +116,11 @@ function main(){
         show(".console",console);
     });
 
-    //result
-    $("#4_4").click(function(){
-        if(stringLast(console)!="."&&sign!=0) {
-            switch (sign) {
-                case 1:
-                    console = (inteFor + inteLat + deciFor + deciLat).toFixed(Math.max(timesHig, timesLow) - 1);
-                    break;
-                case 2:
-                    console = (inteFor + deciFor).toFixed(timesLow - 1) - (inteLat + deciLat).toFixed(timesHig - 1);
-                    break;
-                case 3:
-                    console = (inteFor + deciFor).toFixed(timesLow - 1) * (inteLat + deciLat).toFixed(timesHig - 1);
-                    break;
-                case 4:
-                    if (parseFloat((inteLat + deciLat).toFixed(timesHig - 1)) == 0) {
-                        break;
-                    }
-                    console = (inteFor + deciFor).toFixed(timesLow - 1) / (inteLat + deciLat).toFixed(timesHig - 1);
-                    break;
-                default :
-                    break;
-            }
 
-        }
-        temp = console;
-        show(".console",console);
 
-        //Çå³ı±äÁ¿
-        sign = 0;
-        inteFor = 0;
-        deciFor = 0;
-        inteLat = 0;
-        deciLat = 0;
-        isdeFor = 0;
-        isdeLat = 0;
-        timesLow = 1;
-        timesHig = 1;
-
-    });
 }
 
-//ÏÔÊ¾½á¹û
+//æ˜¾ç¤ºç»“æœ
 function show(s,m){
     $(s).text("");
     $(s).append(m);
@@ -174,31 +134,31 @@ function stringLast(s){
 //add num
 function add(s,n){
     if(isdeLat){
-        //²Ù×÷ÊıµÄĞ¡Êı²¿·Ö
+        //æ“ä½œæ•°çš„å°æ•°éƒ¨åˆ†
         deciLat = deciLat+n*(parseFloat(Math.pow(0.1,timesHig).toFixed(timesHig)));
         console = (inteFor+deciFor).toFixed(timesLow-1)+s+(inteLat+deciLat).toFixed(timesHig);
         timesHig += 1;
     }else{
-        //²Ù×÷ÊıµÄÕûÊı²¿·Ö
+        //æ“ä½œæ•°çš„æ•´æ•°éƒ¨åˆ†
         inteLat = inteLat*10+n;
         console = (inteFor+deciFor).toString()+s+inteLat.toString();
     }
 }
 
 /**
- *  Êı×Ö°´¼ü
+ *  æ•°å­—æŒ‰é”®
  * @param n
  */
 function numKey(n){
     switch (sign){
         case 0:
             if(isdeFor){
-                //±»²Ù×÷ÊıµÄĞ¡Êı²¿·Ö
+                //è¢«æ“ä½œæ•°çš„å°æ•°éƒ¨åˆ†
                 deciFor = parseFloat((deciFor+n*Math.pow(0.1,timesLow)).toFixed(timesLow));
                 console = (inteFor+deciFor).toString();
                 timesLow += 1;
             }else{
-                //±»²Ù×÷ÊıµÄÕûÊı²¿·Ö
+                //è¢«æ“ä½œæ•°çš„æ•´æ•°éƒ¨åˆ†
                 inteFor = inteFor*10+n;
                 console = inteFor.toString();
             }
@@ -218,30 +178,108 @@ function numKey(n){
 }
 
 /**
- * ¼Ó¼õ³Ë³ı
+ * åŠ å‡ä¹˜é™¤
  * @param s
  * @param n
  */
 function psmd(s,n){
-    if(parseFloat(temp)!=0){
-        var n = temp.toString().split(".")[1].length;
-        inteFor=parseInt(temp);
-        deciFor=parseFloat((parseFloat(temp)-parseInt(temp)).toFixed(n));
+    if(sign!=0){
+        getResult();
     }
-    if(sign!=0&&(stringLast(console)!=".")){
-        return;
+    ifTempNonzero();
+    //88.88+0æ—¶æŒ‰+-*/
+    if(sign!=0&&deciLat==0&&inteLat==0){
+        console = console.substring(0,console.length-2);
     }
+    //æ¢ç¬¦å·
     if(stringLast(console)=="+"||stringLast(console)=="-"||stringLast(console)=="*"||stringLast(console)=="/"){
         sign = n;
-        console = console.substring(0,console.length-1);
+        console = console.substring(0,console.length-2);
         console = console+s;
         show(".console",console);
     }else{
-        if(sign!=0&&deciLat==0&&inteLat==0){                    //88.88+0Ê±°´+-*/
-            console = console.substring(0,console.length-2);
-        }
+        //åŠ å‡ä¹˜é™¤ä¸»ç¨‹åº
         sign = n;
         console = console+s;
         show(".console",console);
     }
+}
+
+function ifTempNonzero(){
+    if(parseFloat(temp)!=0){
+        if(temp.toString().split(".")[1]!=undefined){           //åˆ¤æ–­æ˜¯ä¸æ˜¯å°æ•°
+            var m = temp.toString().split(".")[1].length;       //æ±‚å°æ•°ç‚¹ä½æ•°
+            timesLow = m+1;
+            deciFor = parseFloat((parseFloat(temp)-parseInt(temp)).toFixed(m));
+        }
+        inteFor=parseInt(temp);
+    }
+}
+
+function getResult(){
+    if(stringLast(console)!="."&&sign!=0) {
+        switch (sign){
+            case 1:
+                console = (inteFor + inteLat + deciFor + deciLat).toFixed(Math.max(timesHig, timesLow) - 1);
+                break;
+            case 2:
+                console = ((inteFor + deciFor) - (inteLat + deciLat)).toFixed(Math.max(timesHig, timesLow) - 1);
+                break;
+            case 3:
+                console = ((inteFor + deciFor) * (inteLat + deciLat)).toFixed(6);
+                break;
+            case 4:
+                console = ((inteFor + deciFor) / (inteLat + deciLat)).toFixed(6);
+                break;
+            default :
+                break;
+        }
+
+    }
+    temp = console;
+    show(".console",console);
+    //æ¸…é™¤å˜é‡
+    sign = 0;
+    inteFor = 0;
+    deciFor = 0;
+    inteLat = 0;
+    deciLat = 0;
+    isdeFor = 0;
+    isdeLat = 0;
+    timesLow = 1;
+    timesHig = 1;
+}
+
+/**
+ *ä»åå‘å‰æˆªå–æ•°å­—m nä½ï¼ˆä¸ç®—å°æ•°ç‚¹ï¼‰
+ * @param m æ•°å­—
+ * @param n ä½æ•°
+ * @returns æˆªå–åçš„æ•°å­—
+ */
+function cut(m,n){
+    var x = m.toString();
+    var y = x.length;
+    var deci = -1;
+    if(x.split(".")[1]!=undefined){
+        deci = x.split(".")[1].length;
+    }
+    if(y>n){
+        if(deci == -1){
+            x = parseInt(m);
+        }else{
+            if(deci>n){
+                //å°æ•°
+                x = parseFloat(x.substring(0,y-n));
+            }else if(deci == n){
+                //æ•´æ•°
+                x = parseInt(m);
+            }else{
+                x = parseInt(x.substring(0,y-n-1));
+            }
+        }
+
+    }else{
+        x = 0;
+    }
+    return x;
 }
