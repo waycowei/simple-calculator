@@ -10,7 +10,6 @@ var timesHig = 1;                   //操作数小数倍数
 
 var temp = 0;                       //记录上一轮结果
 var console = "0";                  //显示当前公式
-//var oleConsole = "";                //显示上次公式结果
 var inteFor = 0;                    //被操作数整数部分
 var deciFor = 0;                    //被操作数小数部分
 var inteLat = 0;                    //操作数整数部分
@@ -36,9 +35,7 @@ function main(){
     $("#1_4").click(function(){psmd(" *",3)});  //muti
     $("#1_3").click(function(){psmd(" /",4)});  //divi
     $("#1_1").click(function(){
-        if(parseFloat(temp)!=0){
-            show(".console_old",temp);
-        }
+        show(".console_old","");
         show(".console","");
         //清除变量
         sign = 0;
@@ -55,8 +52,9 @@ function main(){
     });           //clear
 
     $("#5_3").click(function(){
-        ifTempNonzero();
-        //TODO:(sign!=0&&isdeLat==0)待检验
+        if(temp!=0){
+            return;
+        }
         if(isdeFor+sign==0||(sign!=0&&isdeLat==0)){
             switch (sign){
                 case 0:
@@ -69,8 +67,9 @@ function main(){
                 case 4:
                     if(inteLat==0){
                         console = console+"0.";
+                    }else{
+                        console = console+".";
                     }
-                    console = console+".";
                     isdeLat = 1;
                     break;
                 default :
@@ -92,9 +91,9 @@ function main(){
             }else{
                 inteFor=Math.floor(inteFor/10);
             }
-        }else if(sign==0&&isdeFor!=0){                   //88.8(88.0)   TODO ERROR(1)
+        }else if(sign==0&&isdeFor!=0){                   //88.8(88.0)
             timesLow -= 1;
-            deciFor = parseFloat(deciFor.toFixed(timesLow-1));
+            deciFor = cut(deciFor,1);
         }else if(sign!=0&&isdeLat==0){                   //88.88+8(0)、88.88+
             if(isdeLat==0){
                 inteLat = Math.floor(inteLat/10);
@@ -102,12 +101,12 @@ function main(){
             if(stringLast(console)=="+"||stringLast(console)=="-"||stringLast(console)=="*"||stringLast(console)=="/"){
                 sign=0;
             }
-        }else if(sign!=0&&isdeLat==1){                   //88.88+88.8(88.0)     TODO ERROR(1)
+        }else if(sign!=0&&isdeLat==1){                   //88.88+88.8(88.0)
             if(stringLast(console)=="."){
                 isdeLat=0;
             }else{
                 timesHig -= 1;
-                deciLat = parseFloat(deciLat.toFixed(timesHig));
+                deciLat = cut(deciLat,1);
             }
         }
         if(console.length){
@@ -154,10 +153,15 @@ function numKey(n){
         case 0:
             if(isdeFor){
                 //被操作数的小数部分
+
                 deciFor = parseFloat((deciFor+n*Math.pow(0.1,timesLow)).toFixed(timesLow));
                 console = (inteFor+deciFor).toString();
                 timesLow += 1;
             }else{
+                if(temp!=0&&sign==0){
+                    show(".console_old",temp);
+                    temp = 0;
+                }
                 //被操作数的整数部分
                 inteFor = inteFor*10+n;
                 console = inteFor.toString();
@@ -185,6 +189,7 @@ function numKey(n){
 function psmd(s,n){
     if(sign!=0){
         getResult();
+        show(".console_old",temp);
     }
     ifTempNonzero();
     //88.88+0时按+-*/
@@ -205,6 +210,7 @@ function psmd(s,n){
     }
 }
 
+//判断temp是不是0
 function ifTempNonzero(){
     if(parseFloat(temp)!=0){
         if(temp.toString().split(".")[1]!=undefined){           //判断是不是小数
@@ -214,10 +220,12 @@ function ifTempNonzero(){
         }
         inteFor=parseInt(temp);
     }
+    temp = 0;
+    return 1;
 }
 
 function getResult(){
-    if(stringLast(console)!="."&&sign!=0) {
+    if(stringLast(console)!="."&&sign!=0){
         switch (sign){
             case 1:
                 console = (inteFor + inteLat + deciFor + deciLat).toFixed(Math.max(timesHig, timesLow) - 1);
@@ -277,7 +285,6 @@ function cut(m,n){
                 x = parseInt(x.substring(0,y-n-1));
             }
         }
-
     }else{
         x = 0;
     }
