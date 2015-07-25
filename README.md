@@ -3,10 +3,13 @@
 UI直接用的自己手机的计算器（MX3 Flyme4.2.8.1A）  
 ![simpleCalculator-main](http://7xiu7f.com1.z0.glb.clouddn.com/blog_simpleCalculator-main.png)  
 license : [MIT](http://wkcole.github.com/license)  
-
-  
+ beta 0.3.5
+ ---  
+ * 完成UI
+ * 修复很多bug
+ 
  beta 0.3
- --- 
+ ---  
  * 已完成功能：浮点数的加减乘除（bug基本排除
  * 高级面板待开发
   
