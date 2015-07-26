@@ -66,7 +66,10 @@ function main(){
                 case 2:
                 case 3:
                 case 4:
-                    console = console+"0.";
+                    if(inteLat==0){
+                        console = console+"0.";
+                    }
+                    console = console+".";
                     var x = console.substring(console.length-2,console.length-1);
                     var y = console.substring(console.length-3,console.length-2);
                     if(x=="0"&&y=="0"){
@@ -85,6 +88,7 @@ function main(){
             show(".console_old",temp);
             show(".console","");
             temp = 0;
+            return;
         }else if(sign==0&&stringLast(console)=="."){     //88.
             isdeFor=0;
         }else if(sign!=0&&stringLast(console)=="."){     //88.88+88.
@@ -241,6 +245,9 @@ function numKey(n){
  * @param n
  */
 function psmd(s,n){
+    if(stringLast(console)=="."){
+        return;
+    }
     if(sign!=0&&(deciLat+inteLat)!=0){
         getResult();
         show(".console_old",temp);
@@ -269,6 +276,7 @@ function psmd(s,n){
  * = 号
  */
 function getResult(){
+
     if(stringLast(console)=="."){
         return;
     }
@@ -282,9 +290,11 @@ function getResult(){
                 break;
             case 3:
                 console = ((inteFor + deciFor) * (inteLat + deciLat)).toString();
+
                 if(console.split(".")[1]!=undefined){
                     if(console.split(".")[1].length>6){
                         console = parseFloat(console).toFixed(6);
+
                         exactDeci();
                     }else{
                         exactDeci();
@@ -371,7 +381,7 @@ function ifTempNonzero(){
 //舍去结果最后的一大串0
 function exactDeci(){
     if(stringLast(console)=="0"){
-        console = cut(console,1);
+        console = cut(console,1).toString();
     }
     if(stringLast(console)=="0"){
         exactDeci();
