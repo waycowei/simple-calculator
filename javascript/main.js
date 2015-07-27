@@ -251,9 +251,9 @@ function psmd(s,n){
     if(sign!=0&&(deciLat+inteLat)!=0){
         getResult();
         show(".console_old",temp);
+        ifTempNonzero();
         temp = 0;
     }
-    ifTempNonzero();
     //88.88+0时按+-*/
     if(sign!=0&&deciLat==0&&inteLat==0){
         console = console.substring(0,console.length-2);
@@ -276,7 +276,6 @@ function psmd(s,n){
  * = 号
  */
 function getResult(){
-
     if(stringLast(console)=="."){
         return;
     }
@@ -290,11 +289,9 @@ function getResult(){
                 break;
             case 3:
                 console = ((inteFor + deciFor) * (inteLat + deciLat)).toString();
-
                 if(console.split(".")[1]!=undefined){
                     if(console.split(".")[1].length>6){
                         console = parseFloat(console).toFixed(6);
-
                         exactDeci();
                     }else{
                         exactDeci();
