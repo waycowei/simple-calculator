@@ -68,8 +68,9 @@ function main(){
                 case 4:
                     if(inteLat==0){
                         console = console+"0.";
+                    }else{
+                        console = console+".";
                     }
-                    console = console+".";
                     var x = console.substring(console.length-2,console.length-1);
                     var y = console.substring(console.length-3,console.length-2);
                     if(x=="0"&&y=="0"){
@@ -245,6 +246,7 @@ function numKey(n){
  * @param n
  */
 function psmd(s,n){
+    ifTempNonzero();
     if(stringLast(console)=="."){
         return;
     }
